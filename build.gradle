@@ -1,0 +1,53 @@
+plugins {
+	id 'groovy'
+	id 'application'
+	id "com.github.johnrengelman.shadow" version "2.0.2"
+}
+
+group = 'com.amdelamar'
+version = '0.1.0'
+jar.baseName = 'vertx-groovy'
+jar.enabled = false
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:3.0.+'
+    compile 'io.vertx:vertx-lang-groovy:3.5.+'
+    compile 'io.vertx:vertx-core:3.5.+'
+    compile 'io.vertx:vertx-web:3.5.+'
+
+    // logging dependencies
+    // compile 'org.slf4j:slf4j-api:1.7.+'
+    // compile 'org.slf4j:slf4j-simple:1.7.+'
+
+    // test dependencies
+    testCompile 'junit:junit:4.12'
+    testCompile 'io.vertx:vertx-unit:3.5.+'
+}
+
+
+mainClassName = 'hello.Server'
+def mainVerticleName = 'hello.MainVerticle'
+def watchForChange = 'src/**/*'
+def doOnChange = './gradlew classes'
+if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+    doOnChange = '.\\gradlew classes'
+}
+
+// Vertx redeploy
+run {
+    args = ['run', mainVerticleName, "--redeploy=$watchForChange", "--launcher-class=$mainClassName", "--on-redeploy=$doOnChange"]
+}
+
+shadowJar {
+    classifier = null
+    manifest {
+        attributes "Main-Verticle": mainVerticleName
+    }
+}
+
