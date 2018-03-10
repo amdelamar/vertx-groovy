@@ -4,8 +4,8 @@ A simple Groovy webapp using Eclipse [Vert.x](http://vertx.io)
 
 ## Prerequisites
 
-* [Java 1.8](https://www.java.com/download/)
-* [Groovy 3.0](http://groovy-lang.org/download.html)
+* [JDK 1.8+](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Groovy 3.0+](http://groovy-lang.org/download.html)
 
 ## Download and Build
 
